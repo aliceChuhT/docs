@@ -44,7 +44,7 @@ merge queue 上运行；无发布任务、生产凭据或自动上线行为。PR
 `BabelTTS` 仅一次性授予/确认两人的仓库 Write 权限并配置平台保护规则，不参与每次发布审批。
 `CODEOWNERS` 已列出两名日常维护者；实际授权及强制审核规则仍需管理员配置并验证。
 详见 [发布与回滚流程](docs/publishing.md)、
-[BabelTTS 一次性配置清单](docs/owner-actions.md) 和 [项目约束](AGENTS.md)。
+[BabelTTS 一次性配置步骤与 GitHub 设置页](docs/owner-actions.md) 和 [项目约束](AGENTS.md)。
 独立静态站发布由日常维护者与运维另行实施，当前没有可用的自托管部署命令。
 
 禁止提交真实 Token、私钥、助记词、生产配置或敏感内部端点，也不要将这些信息放入

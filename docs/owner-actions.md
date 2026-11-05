@@ -10,7 +10,7 @@
 | P0 | 无需求则暂停/卸载 GitBook App；保留时只能选择文档仓库，不允许 All repositories。确认业务/合约/运维仓库均不在范围，验证正常文档操作。同步方向不能代表 App 只读 | GitHub Owner |
 | P0 | 排查文档仓库及组织继承的 Secrets、Deploy Keys、共享 Runner；移除业务凭据与生产网络访问，暴露过的凭据在发行端轮换并验证旧值失效 | Owner/仓库 Admin/凭据负责人 |
 | P0 | GitBook 使用实名账号与可用 MFA/SSO；分离编辑、审核、发布与管理员。清理不用的 Token/MCP/集成，禁止存入内部敏感资料；用普通账号验证不能管理权限或直接发布 | GitBook 管理员（不是 GitHub 登录权限） |
-| P1 | 人工审核并合并首次 bootstrap PR；若 fork 工作流待批准，审阅后批准运行。在 Actions 中确认 `docs-security` 实际运行成功 | 仓库维护者/Admin |
+| P1 | 确认仓库允许 GitHub Actions，人工审核首次 bootstrap PR；若 fork 工作流待批准，审阅后批准运行。若首个 PR 没有 CI 记录，人工审阅合并后从 `master` 手动运行本工作流，确认 `docs-security` 实际成功，再设置 required check | 仓库维护者/Admin |
 | P1 | 在 `master` 启用 required PR、至少一次非作者审核、Code Owner review、最新变更重新审核、required check `docs-security`；阻止强推/删除，不给 GitBook App 常规 bypass | GitHub Owner/仓库 Admin |
 | P1 | 确认 CODEOWNERS 中 `BabelTTS` 有效；若改为团队，团队必须真实存在且具有适当仓库权限。测试未审核、检查失败 PR 无法合并，并验证普通账号/App 无法绕过 | GitHub Owner/仓库 Admin |
 | P1 | 确认 Git Sync 不能直接推正式分支；GitBook 有强制审核能力时配置并验证未审核不可发布。套餐缺失时记录缺口，不能宣称仓库规则已保护 GitBook 网页 | 两端管理员 |

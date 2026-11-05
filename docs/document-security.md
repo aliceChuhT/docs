@@ -62,6 +62,8 @@ python3 scripts/check_docs_security.py --finalize-baseline
 
 首次引入此功能时目标分支还没有检查器，CI 会明确标记 **Bootstrap only**，使用候选检查器验证。
 Owner 必须人工审阅工作流、脚本、基线及回归测试；首次绿色结果不能证明已经启用了不可绕过的门禁。
+若首个 PR 没有触发 CI，Owner 先检查 Actions 是否启用及 fork 审批设置；人工审核首次合并后，
+从 `master` 执行 `workflow_dispatch` 验证真实 Runner 上的检查和测试，不能把 Checks 0 当成成功。
 合并后再由 Owner 把 `docs-security` 设置为 required check，并开启 Code Owner review、独立审核与禁止绕过。
 
 工作流本身也能被 PR 修改或删除，必须由平台规则保护 `.github/`、`scripts/`、`security/`、`tests/` 和审核规范。

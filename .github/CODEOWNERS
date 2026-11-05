@@ -1,0 +1,3 @@
+# BabelTTS must confirm ownership and enable required Code Owner reviews in rulesets.
+# This file routes reviews; it does not enforce branch protection by itself.
+* @BabelTTS

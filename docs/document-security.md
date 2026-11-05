@@ -40,7 +40,7 @@ python3 scripts/check_docs_security.py --refresh-baseline
 PR 检查采用**目标分支**的脚本、策略和基线：同一个 PR 修改内容并改基线仍会被目标分支规则拒绝。
 合法变更分两步：
 
-1. 策略/基线 PR：保留原文内容，只提交经独立审核的未来域名/页面/附件哈希，并提供待变更内容或另一个草稿 PR 的链接。由 `BabelTTS` 或获授权维护者核实后合并。
+1. 策略/基线 PR：保留原文内容，只提交经独立审核的未来域名/页面/附件哈希，并提供待变更内容或另一个草稿 PR 的链接。由非作者的日常研发维护者核实后合并，不需要 `BabelTTS` 逐次审批。
 2. 内容 PR：包含对应内容与必要新增文件；基于更新后的目标分支重新运行检查，审核通过后合并。
 
 刷新会为已改文件同时保留旧/新两个已审核哈希；新增/计划删除文件列入 `optional_files` 过渡清单。
@@ -61,13 +61,19 @@ python3 scripts/check_docs_security.py --finalize-baseline
 候选脚本回归测试只在该隔离环境执行。
 
 首次引入此功能时目标分支还没有检查器，CI 会明确标记 **Bootstrap only**，使用候选检查器验证。
-Owner 必须人工审阅工作流、脚本、基线及回归测试；首次绿色结果不能证明已经启用了不可绕过的门禁。
-若首个 PR 没有触发 CI，Owner 先检查 Actions 是否启用及 fork 审批设置；人工审核首次合并后，
+由非作者的日常研发维护者人工审阅工作流、脚本、基线及回归测试，不要求组织 Owner 逐项代码审核；
+首次绿色结果不能证明已经启用了不可绕过的门禁。
+`BabelTTS` 一次性为 `aliceChuhT`、`tabufan` 授予/确认本仓库 Write 权限，开启必要的 Actions 能力及首次 fork 运行审批。
+若首个 PR 没有触发 CI，先由管理员检查 Actions 与 fork 审批配置；维护者人工审核并完成首次合并后，
 从 `master` 执行 `workflow_dispatch` 验证真实 Runner 上的检查和测试，不能把 Checks 0 当成成功。
-合并后再由 Owner 把 `docs-security` 设置为 required check，并开启 Code Owner review、独立审核与禁止绕过。
+随后由 `BabelTTS` 将 `docs-security` 设为 required check，开启 Code Owner review、独立审核、最新变更重新审核、
+分支保持最新及禁止绕过。后续运行、审核与发布由日常维护者自行完成。
 
 工作流本身也能被 PR 修改或删除，必须由平台规则保护 `.github/`、`scripts/`、`security/`、`tests/` 和审核规范。
 `CODEOWNERS` 只是审核路由，只有开启平台强制规则才具有门禁效果。
+当前配置的日常 Code Owners 是 `aliceChuhT`、`tabufan`；二者都必须有真实 Write 权限。
+同一条规则中任一非作者 Code Owner 审批即可，不要求两人同时审批，也不要求 `BabelTTS` 审批。
+只有作者本人可审批的单人名单不能满足独立审核要求；维护者变更时需同步更新名单、权限和平台验证。
 
 ## 限制
 

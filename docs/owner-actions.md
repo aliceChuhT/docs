@@ -1,20 +1,26 @@
-# BabelTTS 管理员待办
+# BabelTTS 一次性授权与保护配置
 
-以下都是待验证的平台动作；合并本 PR 不会替管理员执行。组织成员列表当前显示 `BabelTTS` 为 Owner，
-`aliceChuhT` 对本仓库的实际权限为 READ，需经个人 fork 提交 PR。
+日常维护者为 `aliceChuhT`（Alice）、`tabufan`。审核、合并、发布与回滚由两人负责，作者由另一人审核，
+不要求 `BabelTTS` 逐次审核或合并。本 PR 仅修改仓库文件，不会自动变更以下平台设置。
+首次检查时 Alice 仅有 READ 权限，因此本 PR 经个人 fork 提交；以下 Write 授权仍需确认生效。
 
-| 优先级 | 执行与验收 | 所需身份 |
+| 顺序 | BabelTTS 一次性执行/协调 | 怎么验收 |
 | --- | --- | --- |
-| P0 | 修改授权前保存 GitBook App 权限、完整授权仓库及 2026-11-02 至 11-05 检查时刻的原始审计日志；记录时区，覆盖北京时间边界。Git/API 日志若套餐不支持须标明缺口，不把无数据当无异常 | GitHub Owner；按需联系 GitBook 管理员 |
-| P0 | 核查安装/卸载/扩权、仓库授权、异常推送及强推、保护规则、Actions、成员/Deploy Key/Secrets 变化。关联事件报告 IOC，记录异常处置与未排除风险 | GitHub Owner |
-| P0 | 无需求则暂停/卸载 GitBook App；保留时只能选择文档仓库，不允许 All repositories。确认业务/合约/运维仓库均不在范围，验证正常文档操作。同步方向不能代表 App 只读 | GitHub Owner |
-| P0 | 排查文档仓库及组织继承的 Secrets、Deploy Keys、共享 Runner；移除业务凭据与生产网络访问，暴露过的凭据在发行端轮换并验证旧值失效 | Owner/仓库 Admin/凭据负责人 |
-| P0 | GitBook 使用实名账号与可用 MFA/SSO；分离编辑、审核、发布与管理员。清理不用的 Token/MCP/集成，禁止存入内部敏感资料；用普通账号验证不能管理权限或直接发布 | GitBook 管理员（不是 GitHub 登录权限） |
-| P1 | 确认仓库允许 GitHub Actions，人工审核首次 bootstrap PR；若 fork 工作流待批准，审阅后批准运行。若首个 PR 没有 CI 记录，人工审阅合并后从 `master` 手动运行本工作流，确认 `docs-security` 实际成功，再设置 required check | 仓库维护者/Admin |
-| P1 | 在 `master` 启用 required PR、至少一次非作者审核、Code Owner review、最新变更重新审核、required check `docs-security`；阻止强推/删除，不给 GitBook App 常规 bypass | GitHub Owner/仓库 Admin |
-| P1 | 确认 CODEOWNERS 中 `BabelTTS` 有效；若改为团队，团队必须真实存在且具有适当仓库权限。测试未审核、检查失败 PR 无法合并，并验证普通账号/App 无法绕过 | GitHub Owner/仓库 Admin |
-| P1 | 确认 Git Sync 不能直接推正式分支；GitBook 有强制审核能力时配置并验证未审核不可发布。套餐缺失时记录缺口，不能宣称仓库规则已保护 GitBook 网页 | 两端管理员 |
-| P2 | 按发布规范建设独立静态站与受保护部署环境，移除 GitBook 正式交付权限；建设独立监测、可信备份和回滚，并实测告警与恢复 | Owner、GitBook 管理员、运维 |
+| 1 | 在 `docs` 仓库授予/确认 `aliceChuhT`、`tabufan` 各自的 Write 权限，无需授予组织 Owner 或仓库 Admin | 两人均能创建仓库分支、审核他人 PR，并在门禁通过后合并；CODEOWNERS 识别两人为有效所有者 |
+| 2 | 开启仓库 GitHub Actions，确认托管 Runner 和只读 token 策略；必要时批准首次 fork 工作流运行 | 非作者研发维护者完成首次工作流/脚本/基线审核。若首个 PR 没有触发 CI，维护者人工审核并首次合并后从 `master` 手动运行，提供 `docs-security` 成功链接；Checks 0 不算通过 |
+| 3 | 为 `master` 启用 required PR、至少一次非作者审核、Code Owner review、最新变更重新审核、分支保持最新、required check `docs-security`；禁止强推/删除，不给 GitBook App 常规 bypass | Alice 提交的测试 PR 由 `tabufan` 审核，反向亦可；未审核、检查失败、审批后新增提交的 PR 均不能合并，审核及检查全部通过后日常维护者可以合并，无需领导审批 |
+| 4 | 核查 GitBook App 授权：无需求则暂停/卸载，保留时仅选 `docs`；排查组织级 Secrets/Runner 对文档仓库的授权，取消业务生产权限 | 提供安装范围与访问配置证据；业务、合约、运维仓库不在范围，文档任务不能取得业务生产凭据或内网 Runner |
+| 5 | 协调 GitBook 管理员分别给 Alice 和研发维护者对应实名账号的审核/发布权限；强制独立审核，限制普通编辑者直接发布；不把 BabelTTS 配为每次发布/部署的必需审批人 | 团队能完成编辑→非作者审核→发布→复核；未审核不可发布，普通编辑者不能管理权限。套餐不支持的控制明确列为缺口 |
 
-每项回传：状态 / 执行人 / 验证时间 / 配置截图或测试日志 / 剩余风险。
-新授权、域名切换及凭据变更按当次审批执行，不在审计时顺便扩大权限。
+`CODEOWNERS` 已配置 `* @aliceChuhT @tabufan`。两人必须都有真实 Write 权限，再启用 required Code Owner review；
+该规则要求任一非作者维护者审核，而不是两人同时审批，更不是领导必审。不要把 `BabelTTS` 加回日常 CODEOWNERS 或部署必需审核人。
+
+## 交由日常团队跟进
+
+- Alice、研发和运维负责本次事件排查、凭据轮换、GitBook 整改、上线复核、告警与回滚演练。
+- 调整 App 授权前保留原配置。2026-11-02 至 11-05 检查时刻的组织日志，若仅 Owner 可读，
+  请一次性导出或配置合适的审计读取权限；团队负责分析，记录时区、覆盖范围与套餐造成的日志缺口。
+- 独立静态站/CDN、受保护部署和监测由维护者与运维另提实施 PR，不作为领导日常审核任务。
+- 若维护者调整或离职，另行更新授权、CODEOWNERS 与验证；不为了临时缺人把作者自审或 App bypass 打开。
+
+配置完成请回传：执行人 / 验证时间 / 配置截图 / 成功 CI 链接 / 正反向审核验证结果 / 剩余缺口。

@@ -1,3 +1,4 @@
-# BabelTTS must confirm ownership and enable required Code Owner reviews in rulesets.
-# This file routes reviews; it does not enforce branch protection by itself.
-* @BabelTTS
+# Daily reviewers: Alice and the developer maintainer. The author cannot self-approve.
+# BabelTTS grants/confirms repository Write access for both, then enables required
+# Code Owner review. This file routes reviews; it does not enforce protection itself.
+* @aliceChuhT @tabufan

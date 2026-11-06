@@ -253,14 +253,14 @@ def main():
     parser.add_argument("--policy", type=Path, default=CODE_ROOT / "security/doc-policy.json")
     parser.add_argument("--baseline", type=Path, default=CODE_ROOT / "security/doc-baseline.json")
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--refresh-baseline", action="store_true", help="local-only old/new transition generation; requires independent review")
+    mode.add_argument("--refresh-baseline", action="store_true", help="local-only old/new transition generation; requires source verification before merging")
     mode.add_argument("--finalize-baseline", action="store_true", help="local-only prune to reviewed current content after a transition")
     args = parser.parse_args()
     try:
         policy = load_json(args.policy)
         if args.refresh_baseline or args.finalize_baseline:
             refresh(args.root.resolve(), policy, args.baseline, finalize=args.finalize_baseline)
-            print("Candidate baseline written; review it independently before merging.")
+            print("Candidate baseline written; verify each change against source evidence before merging.")
             return 0
         baseline = load_json(args.baseline)
         validate_policy(policy, baseline)

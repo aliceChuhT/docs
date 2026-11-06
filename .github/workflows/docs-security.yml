@@ -39,7 +39,7 @@ jobs:
             python3 -I trusted/scripts/check_docs_security.py --root candidate \
               --policy trusted/security/doc-policy.json --baseline trusted/security/doc-baseline.json
           else
-            echo '::warning::Bootstrap only: base has no checker. A non-author developer maintainer must review checker, policy and baseline before first merge; an administrator must enable protection rules.'
+            echo '::warning::Bootstrap only: base has no checker. Alice must verify checker, policy, baseline and source evidence before first merge; an administrator must enable PR and required-check protection. Solo maintenance provides no independent approval.'
             python3 -I candidate/scripts/check_docs_security.py --root candidate \
               --policy candidate/security/doc-policy.json --baseline candidate/security/doc-baseline.json
           fi

@@ -1,4 +1,4 @@
-# Daily reviewers: Alice and the developer maintainer. The author cannot self-approve.
-# BabelTTS grants/confirms repository Write access for both, then enables required
-# Code Owner review. This file routes reviews; it does not enforce protection itself.
-* @aliceChuhT @tabufan
+# Alice is the sole daily maintainer. This file identifies responsibility only.
+# Require PRs and successful docs-security checks, with zero required approvals.
+# Do not enable required Code Owner review: authors cannot approve their own PRs.
+* @aliceChuhT

@@ -39,10 +39,11 @@ merge queue 上运行；无发布任务、生产凭据或自动上线行为。PR
 当前实际流程仍是 GitBook 托管发布；本次 CI 不会改变 Git Sync、域名或线上内容。
 合并 GitBook 变更可能直接发布，因此 GitHub 检查不能单独保护 GitBook 托管页面。
 
-日常内容走 PR、独立审核、安全检查和发布后复核；敏感页面/附件变化先审核基线，再提交内容。
-日常审核、合并、发布与回滚由 `aliceChuhT`（Alice）和 `tabufan` 负责，作者不能自审。
-`BabelTTS` 仅一次性授予/确认两人的仓库 Write 权限并配置平台保护规则，不参与每次发布审批。
-`CODEOWNERS` 已列出两名日常维护者；实际授权及强制审核规则仍需管理员配置并验证。
+日常内容走 PR、Alice 复核、安全检查和发布后复核；敏感页面/附件变化先核实基线，再提交内容。
+日常复核、合并、发布与回滚由 `aliceChuhT`（Alice）一人负责，无需给 `tabufan` Write 权限。
+`BabelTTS` 仅一次性确认 Alice 的仓库 Write 权限并配置平台保护规则，不参与每次发布审批。
+平台要求 PR 和 `docs-security` 成功，审批人数为 0，不启用强制 Code Owner 审核。
+`CODEOWNERS` 仅标记 Alice 的维护责任；单人模式不提供双人复核，实际保护仍需管理员配置并验证。
 详见 [发布与回滚流程](docs/publishing.md)、
 [BabelTTS 一次性配置步骤与 GitHub 设置页](docs/owner-actions.md) 和 [项目约束](AGENTS.md)。
 独立静态站发布由日常维护者与运维另行实施，当前没有可用的自托管部署命令。
